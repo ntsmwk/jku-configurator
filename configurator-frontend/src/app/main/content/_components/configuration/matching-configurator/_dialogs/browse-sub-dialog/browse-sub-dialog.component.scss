@@ -1,0 +1,20 @@
+@import "../dialog-styles.scss";
+
+.browse-dialog-content {
+  h2 {
+    padding: 0;
+    margin: 0;
+  }
+
+  .browse-table {
+    .table-header-cell {
+      .table-header-label {
+        cursor: pointer;
+      }
+      .table-header-label:hover {
+        text-decoration: underline;
+        width: max-content;
+      }
+    }
+  }
+}

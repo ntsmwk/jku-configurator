@@ -1,0 +1,40 @@
+<div class="page-layout blank p-24" fusePerfectScrollbar>
+
+  <customizable-header headerText="Einträge erfassen"></customizable-header>
+
+  <div *ngIf="dataSource.data.length > 0">
+    <p class="mt-24 fs-25">
+      Wähle eine vorgegebene Definition einer Tätigkeit aus.
+    </p>
+
+    <mat-form-field>
+      <mat-select placeholder="Filter" style="width: 200px" [(ngModel)]="dropdownFilterValue"
+        (selectionChange)="applyArchetypeFilter()">
+        <mat-option value="ALL">Alle</mat-option>
+        <mat-option *ngIf="environmentMode !== 'flexprod'" value="TASK">Tätigkeiten</mat-option>
+        <mat-option *ngIf="environmentMode !== 'flexprod'" value="FLEXPROD">Verdienst</mat-option>
+        <mat-option *ngIf="environmentMode !== 'flexprod'" value="COMPETENCE">Kompetenz</mat-option>
+        <mat-option *ngIf="environmentMode !== 'flexprod'" value="FUNCTION">Funktion</mat-option>
+        <mat-option *ngIf="environmentMode !== 'iVolunteer'" value="FLEXPROD">FlexProd</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="table">
+      <mat-table #table [dataSource]="dataSource">
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+          <mat-cell *matCellDef="let task">{{ task.name }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="configuration">
+          <mat-header-cell *matHeaderCellDef>Konfiguration</mat-header-cell>
+          <mat-cell *matCellDef="let task">{{ task.configurationName }}
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns" (click)="onRowSelect(row)"></mat-row>
+      </mat-table>
+    </div>
+  </div>
+</div>
